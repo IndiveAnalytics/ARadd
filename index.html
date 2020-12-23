@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Virtual Tour Demonstration</title>
-    <meta name="description" content="Virtual Tour Demonstration">
+    <title>Smooth Cam movement</title>
+    <meta name="description" content="Smooth Cam movement">
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
 
 <!--animation component script-->
@@ -166,10 +166,13 @@
 <!--we load the images of the rooms part of the virtual tour-->
 
 		<a-assets>        
-			<img id="room1" src="https://github.com/IndiveAnalytics/ARadd/raw/f5ded0de92196dc920d5831768b74ca62ba56e94/lib_1.jpg" crossorigin="anonymous">
-			<img id="room2" src="https://github.com/IndiveAnalytics/ARadd/raw/f5ded0de92196dc920d5831768b74ca62ba56e94/lib_2.jpg" crossorigin="anonymous">
-			<img id="room3" src="https://github.com/IndiveAnalytics/ARadd/raw/f5ded0de92196dc920d5831768b74ca62ba56e94/lib_3.jpg" crossorigin="anonymous">
+			<img id="room1" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/067432075b577fdab85fbf9cd553c0eff87e73ea/lib_1.jpg" crossorigin="anonymous">
+			<img id="room2" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/067432075b577fdab85fbf9cd553c0eff87e73ea/lib_2.jpg" crossorigin="anonymous">
+			<img id="room3" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/067432075b577fdab85fbf9cd553c0eff87e73ea/lib_3.jpg" crossorigin="anonymous">
+
+			
 			<img id="hotspot" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fhotspot.png?v=1564471993959" crossorigin="anonymous">
+			<img id="info-icon" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Finfo-icon.png?v=1564471994218" crossorigin="anonymous">
 			</a-assets>
 
 <!--we place the teleportation portals between rooms (room teleport hotspots) in each room-->
@@ -178,7 +181,7 @@
 
 			<a-entity id="group-room1" scale="">
 				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room1" position="-10 0 0" material="" geometry="" src="#hotspot" look-at=""></a-image>
-				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room1" position="-10 0 0" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 0 -2" material="" geometry="" src="#hotspot" look-at=""></a-image>
         		</a-entity>
 
 			<a-entity id="group-room2" scale="0 0 0">
@@ -187,11 +190,31 @@
 			</a-entity>
 
 			<a-entity id="group-room3" scale="0 0 0">
-				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room3" position="10 0 2" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="10 0 2" material="" geometry="" src="#hotspot" look-at=""></a-image>
 				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room3" position="10 0 4" material="" geometry="" src="#hotspot" look-at=""></a-image>
 			</a-entity>
 
+
 	      </a-entity>
+      
+<!--we place the info spots where we want into to pop up in each room (info spots) -->
+      
+		<a-entity id="infos" infogroup="">
+
+			<a-entity id="infogroup-room1" scale="">
+
+			</a-entity>
+		
+			<a-entity id="infogroup-room2" scale="0 0 0">
+
+			</a-entity>
+
+			<a-entity id="infogroup-room3" scale="0 0 0">
+
+			</a-entity>
+
+
+		</a-entity>
       
 <!--we create a cursor that allows waiting time before click event is fired and create the click event anymation of teleportation -->
 
