@@ -10,6 +10,9 @@
 <!--animation component script-->
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+
+<!--camera multilook component script-->
+    <script src="https://morandd.github.io/aframe-multitouch-look-controls/multitouch-look-controls.js"></script>
     
     <script>
 
@@ -228,6 +231,10 @@
 			</a-entity>
 			<a-plane id="camfadeplane" rotation="10 0.5 0" position="0 0 -0.5" material="color:#000000;transparent:true;opacity:0" width="2" height="2" animation__fadein="property:material.opacity;to:1;dur:2000;startEvents:camFadeIn" animation__fadeout="property:material.opacity;to:0;dur:200;startEvents:camFadeOut"></a-plane>
       		</a-entity>
+
+<!--we add the multilook camera entiry here-->
+
+		<a-entity camera multitouch-look-controls></a-entity>
 
 <!--we set the skybox to room 1, the animation will start there -->
 
