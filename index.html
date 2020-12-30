@@ -10,6 +10,7 @@
 <!--animation component script-->
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githubusercontent.com/AVGP/a-touch-controls/master/a-touch-controls.js"></script>
 
 <!--here we add the main elements for the tour to happen-->
 
@@ -229,7 +230,7 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
       
 <!--we create the camera entity so that all spots look at it, then we add the curson in it (mouse) -->
 
-		<a-entity id="cam" camera="fov:80" position="0 1.6 0" look-controls animation__zoomin="property:camera.fov;dur:1000;to:70;startEvents:zoomin;" animation__zoomout="property:camera.fov;dur:1000;to:80;startEvents:zoomout;">
+		<a-entity id="cam" camera="fov:80" position="0 1.6 0" look-controls touch-controls animation__zoomin="property:camera.fov;dur:1000;to:70;startEvents:zoomin;" animation__zoomout="property:camera.fov;dur:1000;to:80;startEvents:zoomout;">
 			<a-entity id="cursor-visual" cursor="rayOrigin: mouse">
 			</a-entity>
 		</a-entity>
