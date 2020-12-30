@@ -5,12 +5,11 @@
     <meta charset="utf-8">
     <title>Virtual Tour Demonstration</title>
     <meta name="description" content="Virtual tour demonstration">
-    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
 
 <!--animation component script-->
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://raw.githubusercontent.com/AVGP/a-touch-controls/master/a-touch-controls.js"></script>
 
 <!--here we add the main elements for the tour to happen-->
 
@@ -180,7 +179,7 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
 			<img id="room3" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/master/lib_1.jpg" crossorigin="anonymous">
 
 			
-			<img id="hotspot" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fhotspot.png?v=1564471993959" crossorigin="anonymous">
+			<img id="hotspot" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/master/Icon%20movement.png" crossorigin="anonymous">
 			<img id="info-icon" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Finfo-icon.png?v=1564471994218" crossorigin="anonymous">
 		</a-assets>
 
@@ -230,7 +229,7 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
       
 <!--we create the camera entity so that all spots look at it, then we add the curson in it (mouse) -->
 
-		<a-entity id="cam" camera="fov:80" position="0 1.6 0" look-controls touch-controls animation__zoomin="property:camera.fov;dur:1000;to:70;startEvents:zoomin;" animation__zoomout="property:camera.fov;dur:1000;to:80;startEvents:zoomout;">
+		<a-entity id="cam" camera="fov:80" position="0 1.6 0" look-controls animation__zoomin="property:camera.fov;dur:1000;to:70;startEvents:zoomin;" animation__zoomout="property:camera.fov;dur:1000;to:80;startEvents:zoomout;">
 			<a-entity id="cursor-visual" cursor="rayOrigin: mouse">
 			</a-entity>
 		</a-entity>
