@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Virtual Tour Demonstration</title>
     <meta name="description" content="Virtual tour demonstration">
-    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
 
 <!--animation component script-->
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
@@ -84,7 +84,7 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
         }
       });
       
-//we register the hotspots reload, or teleportation portals
+//on trasitioning room, we register the hotspots, where the old ones are scaled to 0 (disappear) and the new ones to 1
 
       AFRAME.registerComponent('hotspots',{
         init:function(){
@@ -107,12 +107,13 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
       function loadNewSpotDetails()
       {
         
-        //set the skybox source to the new image as per the spot
+        //set the skybox source to the new image as per the spot link
           var sky=document.getElementById("skybox");
           sky.setAttribute("src",ndata.linkto);
             
           var spotcomp=document.getElementById("spots");
           var currspots=nthis.parentElement.getAttribute("id");
+
           //create event for spots component to change the spots data
           spotcomp.emit('reloadspots',{newspots:ndata.spotgroup,currspots:currspots});
 
@@ -125,9 +126,6 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
           //var ncam=document.getElementById("cam");
           //this.setAttribute("camera","fov",80);
           this.emit("zoomout");
-        
-          var fp=document.getElementById("camfadeplane");
-          fp.emit("camFadeOut");
         
       }
       var ndata;
@@ -155,20 +153,13 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
             ndata=data;
             nthis=this;
             
+	    var sky1=document.getElementById("skybox");
+            sky1.emit("fade");
+
             var cam=document.getElementById("cam");
             cam.emit("zoomin");
-            
-            var fp=document.getElementById("camfadeplane");
-            fp.emit("camFadeIn");
+  
             //alert("Start zoom");
-          });
-          this.el.addEventListener('mouseleave',function(){
-            var cur=document.getElementById("cursor-visual");
-            cur.emit("stopFuse");
-          });
-          this.el.addEventListener('mouseenter', function (evt) {
-            var cur=document.getElementById("cursor-visual");
-            cur.emit("startFuse");
           });
         }
 
@@ -180,7 +171,7 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
   <body>
 	<a-scene background="color: #FAFAFA" inspector="https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" keyboard-shortcuts="" screenshot="" vr-mode-ui="enabled: false" device-orientation-permission-ui="">
 	
-<!--we load the images of the rooms part of the virtual tour-->
+<!--we load the images of the rooms part of the virtual tour, and the hotsports or infoicons-->
 
 		<a-assets>        
 			<img id="room1" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/master/lib_3.jpg" crossorigin="anonymous">
@@ -188,7 +179,7 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
 			<img id="room3" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/master/lib_1.jpg" crossorigin="anonymous">
 
 			
-			<img id="hotspot" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Fhotspot.png?v=1564471993959" crossorigin="anonymous">
+			<img id="hotspot" src="https://raw.githubusercontent.com/IndiveAnalytics/ARadd/master/Icon%20movement.png" crossorigin="anonymous">
 			<img id="info-icon" src="https://cdn.glitch.com/c52283d6-3489-44e4-b56b-43550d1bc76c%2Finfo-icon.png?v=1564471994218" crossorigin="anonymous">
 		</a-assets>
 
@@ -197,18 +188,21 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
 		<a-entity id="spots" hotspots="">
 
 			<a-entity id="group-room1" scale="">
-				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room1" position="-10 1 5.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
-				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1 0.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room1" position="-10 1.5 5.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1.5 0.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				
         		</a-entity>
 
 			<a-entity id="group-room2" scale="0 0 0">
-				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-10 1 0.2" material="" geometry="" src="#hotspot" look-at=""></a-image>
-				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1 12" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-10 1.5 0.2" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1.5 12" material="" geometry="" src="#hotspot" look-at=""></a-image>
+
 			</a-entity>
 
 			<a-entity id="group-room3" scale="0 0 0">
-				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-3 1 7" material="" geometry="" src="#hotspot" look-at=""></a-image>
-				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room3" position="-3 1 -7" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-3 1.5 7" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room3" position="-3 1.5 -7" material="" geometry="" src="#hotspot" look-at=""></a-image>
+
 			</a-entity>
 
 
@@ -233,16 +227,17 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
 
 		</a-entity>
       
-<!--we create the camera entity so that all spots look at it, then we add the curson in it (mouse) and we add the fade to black plane for animation -->
+<!--we create the camera entity so that all spots look at it, then we add the curson in it (mouse) -->
 
-		<a-entity id="cam" camera="fov:80" position="0 1.6 0" look-controls animation__zoomin="property:camera.fov;dur:2000;to:50;startEvents:zoomin;" animation__zoomout="property:camera.fov;dur:1000;to:80;startEvents:zoomout;">
-			<a-entity id="cursor-visual" cursor="rayOrigin: mouse"></a-entity>
-			<a-plane id="camfadeplane" rotation="10 0.5 0" position="0 0 -11" material="color:#000000;transparent:true;opacity:0" width="200" height="200" animation__fadein="property:material.opacity;to:1;dur:2000;startEvents:camFadeIn" animation__fadeout="property:material.opacity;to:0;dur:200;startEvents:camFadeOut"></a-plane>
+		<a-entity id="cam" camera="fov:80" position="0 1.6 0" look-controls animation__zoomin="property:camera.fov;dur:1000;to:70;startEvents:zoomin;" animation__zoomout="property:camera.fov;dur:1000;to:80;startEvents:zoomout;">
+			<a-entity id="cursor-visual" cursor="rayOrigin: mouse">
+			</a-entity>
 		</a-entity>
 
 <!--we set the skybox to room 1, the animation will start there -->
 
-      <a-sky id="skybox" src="#room1"></a-sky>
+      <a-sky id="skybox" src="#room1" animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 1000; startEvents: fade"
+             animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 1000; startEvents: animationcomplete__fade"></a-sky>
     </a-scene>
 
 <!--Changing the skybox. When the movement and transition effect is complete change the skybox to another room with the loadnewspotdetails function -->
