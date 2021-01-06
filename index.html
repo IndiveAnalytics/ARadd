@@ -177,10 +177,12 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
   --gutter: 20px;
 }
 
-.imagewrapper {
+.htmlelements {
 position:absolute;
+z-index:1000;
+}
+.imagewrapper {
 bottom:0px;
-	z-index:1000;
 }
 .collapsible {
 	border-bottom: 50px solid rgba(0, 0, 0, 0.3);
@@ -301,13 +303,10 @@ padding:0.1%;
 /*the script below is for the floor plan sidepanel*/
 
 .sidepanelwrapper {
-position:absolute;
 left:0px;
 top:0px;
-z-index:1100;
 height: 100%;
   width: 100%;
-disaply:table;
 }
 
 .sidepanel  {
@@ -317,7 +316,7 @@ disaply:table;
   height: 250px;
   top: 50%;
   left: 0;
-  background-color: rgba(250, 250, 250, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -452,6 +451,7 @@ disaply:table;
     </a-scene>
 
 <!--we create the area where we add the link images for the HTML tour-->
+<div class="htmlelements">
 <div class="imagewrapper">
 <div id="fold" class="collapsible"><span id="fold_p" class="arrow">ᐱ</span></div>
 <div class="outside">
@@ -477,7 +477,7 @@ disaply:table;
 
 <button id="floorplanbutton" class="openbtn" onclick="openNav()">▣<span id="alchemy" class="label"> Floorplan</span></button>
 </div>
-
+</div>
 </div>
 
 <!--Changing the skybox. When the movement and transition effect is complete change the skybox to another room with the loadnewspotdetails function -->
