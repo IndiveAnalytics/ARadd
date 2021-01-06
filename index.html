@@ -167,8 +167,219 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
       
       
     </script>
+
+<!--we add the styling CSS elements -->
+<style>
+
+/*the styling below is for the image gallery*/
+
+:root {
+  --gutter: 20px;
+}
+
+.imagewrapper {
+position:absolute;
+bottom:0px;
+	z-index:1000;
+}
+.collapsible {
+	border-bottom: 50px solid rgba(0, 0, 0, 0.3);
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	height: 0;
+	width: 125px;
+	margin:0 auto;
+	text-align:center;
+	font-size:18px;
+}
+
+.active, .collapsible:hover {
+	content: "Hide";
+	font-weight: bold;
+	font-size:24px;
+}
+
+.arrow {	
+	width:100%;
+	height:100%;
+}
+
+.outside {
+
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.content {
+padding: 10px;
+background-color:rgba(0, 0, 0, 0.3);
+}
+
+.app {
+  display: grid;
+  grid-gap: var(--gutter) 0;
+  grid-template-columns: var(--gutter) 1fr var(--gutter);
+  align-content: start;
+}
+
+.app > * {
+  grid-column: 2 / -2;
+}
+
+.app > .full {
+  grid-column: 1 / -1;
+}
+
+@media screen and (min-width: 480px) {
+.hs {
+  display: grid;
+  grid-gap: calc(var(--gutter) / 2);
+  /*this controls the number of columns in a row and how they display*/
+  grid-template-columns: repeat(200, calc(50% - var(--gutter) * 2));
+  grid-template-rows: minmax(150px, 300px);
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  padding-bottom: calc(.75 * var(--gutter));
+  margin-bottom: calc(-.0 * var(--gutter));
+}
+.hss {
+float: left;
+display: block;
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+padding-bottom:15px;
+}
+}
+
+@media screen and (max-width: 480px) {
+.hs {
+  display: grid;
+  grid-gap: calc(var(--gutter) / 2);
+  /*this controls the number of columns in a row and how they display*/
+  grid-template-columns: repeat(200, calc(100% - var(--gutter) * 2));
+  grid-template-rows: minmax(150px, 300px);
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  padding-bottom: calc(0.75 * var(--gutter));
+  margin-bottom: calc(-.0 * var(--gutter));
+}
+
+.hss {
+float: left;
+display: block;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+padding-bottom:15px;
+}
+}
+
+li.hss:hover {
+  border: 1px solid #777;
+  background-color:rgba(255, 255, 255, 0.3);
+  
+}
+
+.cheat {
+ position:relative;
+height:100%;
+width:100%;
+padding:0.1%;
+}
+
+.desc {
+  margin:0 auto;
+  color:#fff;
+  text-align: center;
+  line-height: 25px;
+  background-color:rgba(0, 0, 0, 0.5);
+  width:100%;
+}
+
+/*the script below is for the floor plan sidepanel*/
+
+.sidepanelwrapper {
+position:absolute;
+left:0px;
+top:0px
+z-index:1100;
+height: 100%;
+  width: 100%;
+disaply:table;
+}
+
+.sidepanel  {
+  width: 0;
+  position: absolute;
+  z-index: 1;
+  height: 250px;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+}
+
+.floorplan {
+  max-width:100%;
+  max-height:100%;
+  display: block;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color:#444;
+}
+
+.label {
+	display: none;
+}
+
+.openbtn:hover .label {
+  display:inline;
+}
+
+
+</style>
+
   </head>
   <body>
+
+<!--we wrap the scene in a div to set it asite from the info-->
+
+<div id="scene" style="position:relative;">
+
 	<a-scene background="color: #FAFAFA" inspector="https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" keyboard-shortcuts="" screenshot="" vr-mode-ui="enabled: false" device-orientation-permission-ui="">
 	
 <!--we load the images of the rooms part of the virtual tour, and the hotsports or infoicons-->
@@ -240,12 +451,79 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
              animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 1000; startEvents: animationcomplete__fade"></a-sky>
     </a-scene>
 
+<!--we create the area where we add the link images for the HTML tour-->
+<div class="imagewrapper">
+<div id="fold" class="collapsible"><span id="fold_p" class="arrow">ᐱ</span></div>
+<div class="outside">
+<div class="content">
+<div class="app">
+  <ul class="hs">
+      <li class="hss" style="background-image:url('https://www.w3schools.com/html/pic_trulli.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">Trulli (Sardinia)</div></div></a></li>
+      <li class="hss" style="background-image:url('https://www.w3schools.com/html/img_5terre.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">5 Terre (Italy)</div></div></a></li>
+	<li class="hss" style="background-image:url('https://www.w3schools.com/html/pic_trulli.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">Trulli (Sardinia)</div></div></a></li>
+	<li class="hss" style="background-image:url('https://www.w3schools.com/html/img_5terre.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">5 Terre (Italy)</div></div></a></li>
+	<li class="hss" style="background-image:url('https://www.w3schools.com/html/pic_trulli.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">Trulli (Sardinia)</div></div></a></li>
+	<li class="hss" style="background-image:url('https://www.w3schools.com/html/img_5terre.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">5 Terre (Italy)</div></div></a></li>
+  </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sidepanelwrapper">
+<div id="mySidepanel" class="sidepanel">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <img src="https://free-images.com/lg/4b82/linlithgow_palace_floor_plan_2.jpg" class="floorplan">
+</div>
+
+<button id="floorplanbutton" class="openbtn" onclick="openNav()">▣<span id="alchemy" class="label"> Floorplan</span></button>
+</div>
+
+</div>
+
 <!--Changing the skybox. When the movement and transition effect is complete change the skybox to another room with the loadnewspotdetails function -->
 
     <script>
+// the script below does reloading when onclicks animations are complete
       var ccam=document.getElementById("cam");
       ccam.addEventListener("animationcomplete",loadNewSpotDetails);
+
+//the script below does the collapsible gallery animation
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+};
+
+// gallery animation side note if writing in no-WP substitute jQuery for $
+jQuery(document).ready(function () {
+    jQuery("#fold").click(function () {
+        jQuery("#fold_p").fadeOut(function () {
+            jQuery("#fold_p").text((jQuery("#fold_p").text() == 'ᐱ') ? 'ᐯ' : 'ᐱ').fadeIn();
+        })
+    })
+});
+
+//the script below is for the floor plan side panel
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+  document.getElementById("floorplanbutton").style.opacity = "0";
+}
+
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+  document.getElementById("floorplanbutton").style.opacity = "1";
+}
     </script>
-  
+
+
 </body>
 </html>
