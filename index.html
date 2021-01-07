@@ -15,7 +15,7 @@
 
     <script>
 
-//we add the function that allows touch virtual tour with no giroscope
+//we add the function that allows touch virtual tour
 
 AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t) {
                         var PI_2 = Math.PI/2,
@@ -365,6 +365,7 @@ top:50%;
 }
 
 .openbtn:hover .label {
+	display:inline;
   
 }
 }
@@ -421,20 +422,20 @@ top:0px;
 		<a-entity id="spots" hotspots="">
 
 			<a-entity id="group-room1" scale="">
-				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room1" position="-10 1.5 5.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
-				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1.5 0.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image id="from_room1_to_room2" spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room1" position="-10 1.5 5.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image id="from_room1_to_room3" spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1.5 0.5" material="" geometry="" src="#hotspot" look-at=""></a-image>
 				
         		</a-entity>
 
 			<a-entity id="group-room2" scale="0 0 0">
-				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-10 1.5 0.2" material="" geometry="" src="#hotspot" look-at=""></a-image>
-				<a-image spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1.5 12" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image id="from_room2_to_room1" spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-10 1.5 0.2" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image id="from_room2_to_room3" spot="linkto:#room3;spotgroup:group-room3;infogroup:infogroup-room3;infoparent:infogroup-room2" position="-10 1.5 12" material="" geometry="" src="#hotspot" look-at=""></a-image>
 
 			</a-entity>
 
 			<a-entity id="group-room3" scale="0 0 0">
-				<a-image spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-3 1.5 7" material="" geometry="" src="#hotspot" look-at=""></a-image>
-				<a-image spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room3" position="-3 1.5 -7" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image id="from_room3_to_room1" spot="linkto:#room1;spotgroup:group-room1;infogroup:infogroup-room1;infoparent:infogroup-room2" position="-3 1.5 7" material="" geometry="" src="#hotspot" look-at=""></a-image>
+				<a-image id="from_room3_to_room2" spot="linkto:#room2;spotgroup:group-room2;infogroup:infogroup-room2;infoparent:infogroup-room3" position="-3 1.5 -7" material="" geometry="" src="#hotspot" look-at=""></a-image>
 
 			</a-entity>
 
@@ -474,7 +475,7 @@ top:0px;
     </a-scene>
 </div>
 <!--we create the area where we add the link images for the HTML tour-->
-   <div class="htmlelements">
+   
      
      <div class="sidepanelwrapper">
       <div id="mySidepanel" class="sidepanel">
@@ -484,23 +485,19 @@ top:0px;
       <button id="floorplanbutton" class="openbtn" onclick="openNav()">▣<span id="alchemy" class="label"> Floorplan</span></button>
      </div>
      <div class="imagewrapper">
-      <div id="fold" class="collapsible"><span id="fold_p" class="arrow">ᐱ</span></div>
+      <div id="fold" class="collapsible" onclick="swapgallery()"><span id="fold_p" class="arrow">ᐱ</span></div>
       <div class="outside">
        <div class="content">
         <div class="app">
          <ul class="hs">
-          <li class="hss" style="background-image:url('https://www.w3schools.com/html/pic_trulli.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">Trulli (Sardinia)</div></div></a></li>
-          <li class="hss" style="background-image:url('https://www.w3schools.com/html/img_5terre.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">5 Terre (Italy)</div></div></a></li>
-	  <li class="hss" style="background-image:url('https://www.w3schools.com/html/pic_trulli.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">Trulli (Sardinia)</div></div></a></li>
-	  <li class="hss" style="background-image:url('https://www.w3schools.com/html/img_5terre.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">5 Terre (Italy)</div></div></a></li>
-	  <li class="hss" style="background-image:url('https://www.w3schools.com/html/pic_trulli.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">Trulli (Sardinia)</div></div></a></li>
-	  <li class="hss" style="background-image:url('https://www.w3schools.com/html/img_5terre.jpg')"><a href="https://www.indiveanalytics.com" target="_blank"><div class="cheat"><div class="desc">5 Terre (Italy)</div></div></a></li>
+          <li class="hss" style="background-image:url('https://i.pinimg.com/originals/4a/ef/a7/4aefa7052bae643ca9e3bd811e3269f3.jpg')"><div class="cheat" onclick="to_room1()"><div class="desc">Reception</div></div></li>
+          <li class="hss" style="background-image:url('https://i.pinimg.com/originals/d9/ca/aa/d9caaa552fdf7b1c0810428738b73cb2.jpg"><div class="cheat" onclick="to_room2()"><div class="desc">Study area</div></div></li>
+	  <li class="hss" style="background-image:url('https://i.pinimg.com/originals/b6/61/7b/b6617b23f3a7473fdc3f0b5946ce4196.jpg')"><div class="cheat" onclick="to_room3()"><div class="desc">Computers</div></div></a></li>
          </ul>
        </div>
       </div>
      </div>
      </div>
-    </div>
 
 
 <!--Changing the skybox. When the movement and transition effect is complete change the skybox to another room with the loadnewspotdetails function -->
@@ -528,13 +525,14 @@ for (i = 0; i < coll.length; i++) {
 
 // gallery animation side note if writing in no-WP substitute jQuery for $
 
-jQuery(document).ready(function () {
-    jQuery("#fold").click(function () {
-        jQuery("#fold_p").fadeOut(function () {
-            jQuery("#fold_p").text((jQuery("#fold_p").text() == 'ᐱ') ? 'ᐯ' : 'ᐱ').fadeIn();
-        })
-    })
-});
+function swapgallery () {
+var x = document.getElementById("fold_p");
+  if (x.innerHTML === "ᐱ") {
+    x.innerHTML = "ᐯ";
+  } else {
+    x.innerHTML = "ᐱ";
+  }
+}
 
 //the script below is for the floor plan side panel
 function openNav() {
@@ -546,6 +544,50 @@ function closeNav() {
   document.getElementById("mySidepanel").style.width = "0";
   document.getElementById("floorplanbutton").style.opacity = "1";
 }
+
+//the script below creates navigation between gallery and room hotspots
+function to_room1() {
+var elem = document.getElementById('skybox');
+if(elem.getAttribute('src') == "#room2")
+{
+var y = document.getElementById("from_room2_to_room1");
+y.click();
+}
+else
+{
+var y = document.getElementById("from_room3_to_room1");
+y.click();
+}
+}
+
+function to_room2() {
+var elem = document.getElementById('skybox');
+if(elem.getAttribute('src') == "#room1")
+{
+var z = document.getElementById("from_room1_to_room2");
+z.click();
+}
+else
+{
+var z = document.getElementById("from_room3_to_room2");
+z.click();
+}
+}
+
+function to_room3() {
+var elem = document.getElementById('skybox');
+if(elem.getAttribute('src') == "#room1")
+{
+var m = document.getElementById("from_room1_to_room3");
+m.click();
+}
+else
+{
+var m = document.getElementById("from_room2_to_room3");
+m.click();
+}
+}
+
     </script>
 
 
