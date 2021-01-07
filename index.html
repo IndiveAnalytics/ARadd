@@ -177,14 +177,13 @@ AFRAME.components["look-controls"].Component.prototype.onTouchMove = function (t
   --gutter: 20px;
 }
 
-.htmlelements {
+.imagewrapper {
 position:absolute;
+bottom:0;
 z-index:1000;
 }
-.imagewrapper {
-bottom:0px;
-}
 .collapsible {
+	color:#fff;
 	border-bottom: 50px solid rgba(0, 0, 0, 0.3);
 	border-left: 25px solid transparent;
 	border-right: 25px solid transparent;
@@ -302,19 +301,10 @@ padding:0.1%;
 
 /*the script below is for the floor plan sidepanel*/
 
-.sidepanelwrapper {
-left:0px;
-top:0px;
-height: 100%;
-  width: 100%;
-}
-
 .sidepanel  {
   width: 0;
   position: absolute;
-  z-index: 1;
   height: 250px;
-  top: 50%;
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
   overflow-x: hidden;
@@ -348,6 +338,15 @@ height: 100%;
   display: block;
 }
 
+/* mobile responsive button for floorplan*/
+@media screen and (min-width: 480px) {
+.sidepanelwrapper {
+position:absolute;
+left:0px;
+top:50%;
+  z-index:1000;
+}
+
 .openbtn {
   font-size: 20px;
   cursor: pointer;
@@ -366,9 +365,33 @@ height: 100%;
 }
 
 .openbtn:hover .label {
-  display:inline;
+  
+}
 }
 
+@media screen and (max-width: 480px) {
+.sidepanelwrapper {
+position:absolute;
+left:0px;
+top:0px;
+  z-index:1000;
+}
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color:#444;
+}
+
+.label {
+	display:inline;
+}
 
 </style>
 
@@ -452,6 +475,14 @@ height: 100%;
 </div>
 <!--we create the area where we add the link images for the HTML tour-->
    <div class="htmlelements">
+     
+     <div class="sidepanelwrapper">
+      <div id="mySidepanel" class="sidepanel">
+       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <img src="https://free-images.com/lg/4b82/linlithgow_palace_floor_plan_2.jpg" class="floorplan">
+      </div>
+      <button id="floorplanbutton" class="openbtn" onclick="openNav()">▣<span id="alchemy" class="label"> Floorplan</span></button>
+     </div>
      <div class="imagewrapper">
       <div id="fold" class="collapsible"><span id="fold_p" class="arrow">ᐱ</span></div>
       <div class="outside">
@@ -468,12 +499,6 @@ height: 100%;
        </div>
       </div>
      </div>
-     <div class="sidepanelwrapper">
-      <div id="mySidepanel" class="sidepanel">
-       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <img src="https://free-images.com/lg/4b82/linlithgow_palace_floor_plan_2.jpg" class="floorplan">
-      </div>
-      <button id="floorplanbutton" class="openbtn" onclick="openNav()">▣<span id="alchemy" class="label"> Floorplan</span></button>
      </div>
     </div>
 
@@ -502,6 +527,7 @@ for (i = 0; i < coll.length; i++) {
 };
 
 // gallery animation side note if writing in no-WP substitute jQuery for $
+
 jQuery(document).ready(function () {
     jQuery("#fold").click(function () {
         jQuery("#fold_p").fadeOut(function () {
