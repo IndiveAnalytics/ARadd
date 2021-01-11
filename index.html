@@ -422,9 +422,19 @@ top:150px;
 right:50px;
 text-size:15px;
 }
-
-.room1wrap:hover .room_name {
+.room_1_name {
 left:-20px;
+background-color: rgba(0,0,0,0.3);
+position:absolute;
+color:white;
+padding:1.5px;
+border-radius: 25px;
+white-space: nowrap;
+opacity:0;
+}
+
+
+.room1wrap:hover .room_1_name {
 opacity:1;
 transition:0.5s;
 }
@@ -441,8 +451,18 @@ text-align:center;
 text-size:15px;
 }
 
-.room2wrap:hover .room_name {
+.room_2_name {
 left:0px;
+background-color: rgba(0,0,0,0.3);
+position:absolute;
+color:white;
+padding:1.5px;
+border-radius: 25px;
+white-space: nowrap;
+opacity:0;
+}
+
+.room2wrap:hover .room_2_name {
 opacity:1;
 transition:0.5s;
 }
@@ -459,9 +479,19 @@ text-align:center;
 text-size:15px;
 }
 
-.room3wrap:hover .room_name {
-opacity:1;
+.room_3_name {
 left:-20px;
+background-color: rgba(0,0,0,0.3);
+position:absolute;
+color:white;
+padding:1.5px;
+border-radius: 25px;
+white-space: nowrap;
+opacity:0;
+}
+
+.room3wrap:hover .room_3_name {
+opacity:1;
 transition:0.5s;
 }
 .room3wrap:hover .map_circle {
@@ -472,25 +502,25 @@ transition:0.5s;
 /* we add responsiveness to the room names in hte dots navigation */
 
 @media screen and (min-width: 480px) {
-.room_name{
-background-color: rgba(0,0,0,0.3);
-position:absolute;
-color:white;
-padding:1.5px;
-border-radius: 25px;
-white-space: nowrap;
+.room_1_name{
+opacity:0;
+}
+.room_2_name{
+opacity:0;
+}
+.room_3_name{
 opacity:0;
 }
 }
 
 @media screen and (max-width: 480px) {
-.room_name{
-background-color: rgba(0,0,0,0.3);
-position:absolute;
-color:white;
-padding:1.5px;
-border-radius: 25px;
-white-space: nowrap;
+.room_1_name{
+opacity:1;
+}
+.room_2_name{
+opacity:1;
+}
+.room_3_name{
 opacity:1;
 }
 }
@@ -586,19 +616,19 @@ opacity:1;
 		<div id="room_1_circle" class="map_circle">
 			<span id="room_1_X" class="room_X">🚶</span>
 		</div>
-		<div class="room_name">Reception</div>
+		<div id="room_1_name" class="room_1_name">Reception</div>
 	</div>
 	<div class="room2wrap" onclick="to_room3()">
 		<div id="room_2_circle" class="map_circle">
 			<span id="room_2_X" class="room_X">🚶</span>
 		</div>
-		<div class="room_name">Computers</div>
+		<div id="room_2_name" class="room_2_name">Computers</div>
 	</div>
 	<div class="room3wrap" onclick="to_room2()">
 		<div id="room_3_circle" class="map_circle">
 			<span id="room_3_X" class="room_X">🚶</span>
 		</div>
-		<div class="room_name">Study area</div>
+		<div id="room_3_name" class="room_3_name">Study area</div>
 	</div>
 
       </div>
@@ -724,6 +754,7 @@ if(room.getAttribute('src') == "#room1")
 {
 document.getElementById("room_1_circle").style.backgroundColor = "red";
 document.getElementById("room_1_X").style.display = "inline";
+document.getElementById("room_1_name").style.opacity = "1";
 document.getElementById("room_2_circle").style.backgroundColor = "";
 document.getElementById("room_2_X").style.display = "none";
 document.getElementById("room_3_circle").style.backgroundColor = "";
@@ -733,19 +764,25 @@ else if(room.getAttribute('src') == "#room3")
 {
 document.getElementById("room_1_circle").style.backgroundColor = "";
 document.getElementById("room_1_X").style.display = "none";
+document.getElementById("room_1_name").style.opacity = "";
 document.getElementById("room_2_circle").style.backgroundColor = "red";
 document.getElementById("room_2_X").style.display = "inline";
+document.getElementById("room_2_name").style.opacity = "1";
 document.getElementById("room_3_circle").style.backgroundColor = "";
 document.getElementById("room_3_X").style.display = "none";
+document.getElementById("room_3_name").style.opacity = "";
 }
 else
 {
 document.getElementById("room_1_circle").style.backgroundColor = "";
 document.getElementById("room_1_X").style.display = "none";
+document.getElementById("room_1_name").style.opacity = "";
 document.getElementById("room_2_circle").style.backgroundColor = "";
 document.getElementById("room_2_X").style.display = "none";
+document.getElementById("room_2_name").style.opacity = "";
 document.getElementById("room_3_circle").style.backgroundColor = "red";
 document.getElementById("room_3_X").style.display = "inline";
+document.getElementById("room_3_name").style.opacity = "1";
 }
 }
 
